@@ -1,2 +1,2 @@
 # juraspot-wind
-Notifies when wind is good for kiteboarding.
+Notifies when wind is good for kiteboarding in Monciskes.
