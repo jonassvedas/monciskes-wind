@@ -8,3 +8,13 @@ Two conditions must be met:
 * wind direction must be on shore.
 
 A telegram bot is used to send a smartphone notification to the user.
+
+## Dependencies
+
+Install tesseract
+
+pip3 install:
+- requests
+- Pillow
+- numpy
+- pytesseract
