@@ -130,3 +130,4 @@ dmypy.json
 
 API_KEY
 CHAT_ID
+.DS_Store
