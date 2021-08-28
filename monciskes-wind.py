@@ -112,7 +112,7 @@ def main(args):
     print("Angle OK: {}, Speed OK: {}".format(angle_ok, speed_ok))
 
     if (angle_ok and speed_ok):
-        send_telegram(args.bot_api_key, args.chat_id, text)
+        send_telegram(args.bot_api_key, text)
 
 def get_args():
     usage = '\nThis program will send a telegram notification if wind conditions for kiteboarding are good in Monciskes.\n'
@@ -121,10 +121,6 @@ def get_args():
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('-b','--bot-api-key', type = str,
-                        required = True,
-                        help = 'Telegram bot API key.')
-
-    parser.add_argument('-c','--chat-id', type = str,
                         required = True,
                         help = 'Telegram bot API key.')
 
