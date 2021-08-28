@@ -113,10 +113,6 @@ def main(args):
 
     if (angle_ok and speed_ok):
         send_telegram(args.bot_api_key, args.chat_id, text)
-        exit(0)
-    else:
-        send_telegram(args.bot_api_key, args.chat_id, text)
-        exit(1)
 
 def get_args():
     usage = '\nThis program will send a telegram notification if wind conditions for kiteboarding are good in Monciskes.\n'
