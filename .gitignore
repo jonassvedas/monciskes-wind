@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 API_KEY
-CHAT_ID
 .DS_Store
