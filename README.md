@@ -1,19 +1,29 @@
 # monciskes-wind
-Notifies when wind is good for kiteboarding in Monciskes.
 
-The script uses the wind station provided by juraspot.lt to analyse the weather conditions and make a decision whether the wind is good enough for kiteboarding.
+## About
+This is a script that sends a telegram notification via a bot to notify users when wind is good for kiteboarding in Monciskes.
+Data is taken from the wind station provided by juraspot.lt.
 
-Two conditions must be met:
-* wind speed must be withing a given wind range by the user
-* wind direction must be on shore.
+Wind is checked every 30 minutes and a notification is sent when:
+* wind speed is between 6.5 and 13.5 m/s
+* wind direction is on-shore (180°-0°)
 
-A telegram bot is used to send a smartphone notification to the user.
+## How to install
+Download and install Telegram messaging app on your device:
+https://telegram.org/
 
-## Dependencies
+In the search field type `monciskes-wind` to find the bot and start a conversation.
+Click `START` in the conversation window to enable the bot.
 
-Install tesseract
 
-pip3 install:
+
+## For developers
+### Dependencies
+
+Tesseract:
+https://tesseract-ocr.github.io/
+
+Python Packages:
 - requests
 - Pillow
 - numpy
