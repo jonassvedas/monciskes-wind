@@ -6,6 +6,9 @@ import argparse
 from PIL import Image
 import numpy as np
 from math import acos, sqrt, pi
+from suntime import Sun
+import pytz
+from datetime import datetime
 
 avg_wind_url = "http://juraspot.lt/images/10MinAvgWindSpeed.php"
 dir_wind_url = "http://juraspot.lt/images/WindDirection.php"
@@ -17,7 +20,7 @@ wind_min, wind_max = (6.5, 13.5)
 # for the angle settings North is assumed at 0 degrees, angle is increasing clockwise.
 # angle is from 0 to 359
 dir_start, dir_end = (180, 0)
-
+latitude, longitude = (56.005, 21.076)
 
 def is_angle_ok(angle, start, end):
     if start <= end:
@@ -33,6 +36,17 @@ def is_speed_ok(speed, min_speed, max_speed):
         return True
     else:
         return False
+
+def is_sunlight_ok():
+    sun = Sun(latitude, longitude)
+    sunrise = sun.get_sunrise_time()
+    sunset = sun.get_sunset_time()
+    time = pytz.utc.localize(datetime.utcnow())
+
+    if (sunrise < time < sunset):
+        return True
+    return False
+
 
 def download_img_from_url(url, dest):
     img = requests.get(url).content
@@ -107,11 +121,12 @@ def main(args):
 
     angle_ok = is_angle_ok(angle, dir_start, dir_end)
     speed_ok = is_speed_ok(speed, wind_min, wind_max)
+    sunlight_ok = is_sunlight_ok()
 
     print(text)
-    print("Angle OK: {}, Speed OK: {}".format(angle_ok, speed_ok))
+    print("Angle OK: {}, Speed OK: {}, Sunlight OK: {}".format(angle_ok, speed_ok, sunlight_ok))
 
-    if (angle_ok and speed_ok):
+    if (angle_ok and speed_ok and sunlight_ok):
         ids = get_chat_ids(args.bot_api_key)
         send_telegram(args.bot_api_key, text, ids)
     else:

@@ -7,6 +7,7 @@ Data is taken from the wind station provided by juraspot.lt.
 Wind is checked every 30 minutes and a notification is sent when:
 * wind speed is between 6.5 and 13.5 m/s
 * wind direction is on-shore (180°-0°)
+* the sun is up :)
 
 ## How to install
 Download and install Telegram messaging app on your device:
@@ -28,3 +29,4 @@ Python Packages:
 - Pillow
 - numpy
 - pytesseract
+- suntime
