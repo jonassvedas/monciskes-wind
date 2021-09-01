@@ -32,6 +32,9 @@ def is_angle_ok(angle, start, end):
     return False
 
 def is_speed_ok(speed, min_speed, max_speed):
+    # TODO check blue pixels or report bug to tess
+    if (int)speed == 1:
+        speed = speed +6
     if (speed >= min_speed) and (speed <= max_speed):
         return True
     else:
