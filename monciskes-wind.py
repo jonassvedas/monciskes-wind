@@ -32,9 +32,6 @@ def is_angle_ok(angle, start, end):
     return False
 
 def is_speed_ok(speed, min_speed, max_speed):
-    # TODO check blue pixels or report bug to tess
-    if (int)speed == 1:
-        speed = speed +6
     if (speed >= min_speed) and (speed <= max_speed):
         return True
     else:
@@ -59,10 +56,22 @@ def download_img_from_url(url, dest):
 def get_wind_speed(url):
     download_img_from_url(url, avg_wind_img)
 
+    img = Image.open(avg_wind_img).convert('RGB')
     # process wind speed
-    speed_data = pytesseract.image_to_string(Image.open(avg_wind_img)).split()
+    speed_data = pytesseract.image_to_string(img, config='tessedit_char_whitelist=0123456789.').split()
+
+    img_data = np.array(img)
+    r = img_data[:,:,0] == 0
+    g = img_data[:,:,1] == 0
+    b = img_data[:,:,2] == 255
+    blue_pixels = r * g * b
+    count = np.sum(blue_pixels)
 
     speed = float(speed_data[5])
+    # Hack for tesseract bug of detecting 7 as 1
+    if count > 1000 and int(speed) == 1:
+        speed = speed + 6
+
     date = speed_data[6]
     time = speed_data[7]
 
