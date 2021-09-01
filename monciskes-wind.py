@@ -128,7 +128,8 @@ def main(args):
 
     if (angle_ok and speed_ok and sunlight_ok):
         ids = get_chat_ids(args.bot_api_key)
-        send_telegram(args.bot_api_key, text, ids)
+        if not args.quiet:
+            send_telegram(args.bot_api_key, text, ids)
     else:
         get_chat_ids(args.bot_api_key)
 
@@ -141,6 +142,9 @@ def get_args():
     parser.add_argument('-b','--bot-api-key', type = str,
                         required = True,
                         help = 'Telegram bot API key.')
+
+    parser.add_argument('-q','--quiet', action='store_true',
+                        help = 'Runs quietly without sending an update.')
 
     args, unparsed = parser.parse_known_args()
     return args
