@@ -1,2 +1,2 @@
 #! bash
-./monciskes-wind.py -b `cat API_KEY`
+./monciskes-wind.py -b `cat API_KEY` -q
