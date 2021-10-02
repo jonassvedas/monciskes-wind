@@ -30,3 +30,4 @@ Python Packages:
 - numpy
 - pytesseract
 - suntime
+- pytz
