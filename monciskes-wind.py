@@ -10,6 +10,8 @@ from suntime import Sun
 import pytz
 from datetime import datetime
 
+raw_data_file= "raw_data.csv"
+
 avg_wind_url = "http://juraspot.lt/images/10MinAvgWindSpeed.php"
 dir_wind_url = "http://juraspot.lt/images/WindDirection.php"
 
@@ -37,11 +39,13 @@ def is_speed_ok(speed, min_speed, max_speed):
     else:
         return False
 
-def is_sunlight_ok():
+def get_time():
+    return pytz.utc.localize(datetime.utcnow())
+
+def is_sunlight_ok(time):
     sun = Sun(latitude, longitude)
     sunrise = sun.get_sunrise_time()
     sunset = sun.get_sunset_time()
-    time = pytz.utc.localize(datetime.utcnow())
 
     if (sunrise < time < sunset):
         return True
@@ -123,6 +127,10 @@ def get_wind_angle(url):
 
     return angle
 
+def save_raw_data(filename, data_string):
+    f = open(filename, "a")
+    f.write(data_string)
+    f.close()
 
 def main(args):
 
@@ -131,19 +139,27 @@ def main(args):
 
     text = "Monciškės: {}m/s | {}° ".format(speed, angle)
 
+    time = get_time()
     angle_ok = is_angle_ok(angle, dir_start, dir_end)
     speed_ok = is_speed_ok(speed, wind_min, wind_max)
-    sunlight_ok = is_sunlight_ok()
+    sunlight_ok = is_sunlight_ok(time)
 
     print(text)
     print("Angle OK: {}, Speed OK: {}, Sunlight OK: {}".format(angle_ok, speed_ok, sunlight_ok))
 
+    csv_format = time.strftime("%Y-%m-%d, %H:%M:%S, ") + str(speed) + ", " + str(angle)
+    save_raw_data(raw_data_file, csv_format)
+    print(csv_format)
+
     if (angle_ok and speed_ok and sunlight_ok):
         ids = get_chat_ids(args.bot_api_key)
+        save_chat_ids_to_db(ids)
         if not args.quiet:
             send_telegram(args.bot_api_key, text, ids)
     else:
-        get_chat_ids(args.bot_api_key)
+        ids = get_chat_ids(args.bot_api_key)
+        save_chat_ids_to_db(ids)
+
 
 def get_args():
     usage = '\nThis program will send a telegram notification if wind conditions for kiteboarding are good in Monciskes.\n'

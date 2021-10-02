@@ -33,7 +33,6 @@ def get_chat_ids(bot_api_key):
         chat_ids.append(result['message']['from']['id'])
 
     no_duplicates_ids = list(set(chat_ids))
-    save_chat_ids_to_db(no_duplicates_ids)
 
     return no_duplicates_ids
 
