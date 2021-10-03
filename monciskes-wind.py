@@ -147,7 +147,7 @@ def main(args):
     print(text)
     print("Angle OK: {}, Speed OK: {}, Sunlight OK: {}".format(angle_ok, speed_ok, sunlight_ok))
 
-    csv_format = time.strftime("%Y-%m-%d, %H:%M:%S, ") + str(speed) + ", " + str(angle)
+    csv_format = time.strftime("%Y-%m-%d, %H:%M:%S, ") + str(speed) + ", " + str(angle) + "\n"
     save_raw_data(raw_data_file, csv_format)
     print(csv_format)
 
