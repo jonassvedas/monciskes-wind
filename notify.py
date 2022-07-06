@@ -21,16 +21,21 @@ def save_chat_ids_to_db(chat_ids):
     json.dump(chat_ids, f)
     f.close()
 
-def get_chat_ids(bot_api_key):
+def get_bot_updates(bot_api_key):
     url = "https://api.telegram.org/bot{}/getUpdates".format(bot_api_key)
+    r = requests.get(url)
+    return r.json()
+
+def get_chat_ids(bot_api_key):
 
     chat_ids = get_chat_ids_from_db()
-
-    r = requests.get(url)
-    data = r.json()
+    data = get_bot_updates(bot_api_key)
 
     for result in data['result']:
-        chat_ids.append(result['message']['from']['id'])
+        try:
+            chat_ids.append(result['message']['from']['id'])
+        except:
+            print("Exeption occured during json parsing probably key error.")
 
     no_duplicates_ids = list(set(chat_ids))
 
