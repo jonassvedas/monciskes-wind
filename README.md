@@ -16,9 +16,14 @@ https://telegram.org/
 In the search field type `monciskes-wind` to find the bot and start a conversation.
 Click `START` in the conversation window to enable the bot.
 
-
+Or you can simply find the bot clicking on the following link and following the instructions: https://t.me/monciskes_wind_bot
 
 ## For developers
+
+### How to test
+To avoid sending messages to all users during testing a test mode is available
+via the -q option.
+
 ### Dependencies
 
 Tesseract:
