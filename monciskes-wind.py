@@ -81,6 +81,42 @@ def get_wind_speed(url):
 
     return (speed, date, time)
 
+def angle_to_direction(angle):
+    if 0 < angle <= 11.25:
+        return "N"
+    elif 11.25 < angle <= 33.75:
+        return "NNE"
+    elif 33.75 < angle <= 56.25:
+        return "NE"
+    elif 56.25 < angle <= 78.75:
+        return "ENE"
+    elif 78.75 < angle <= 101.25:
+        return "E"
+    elif 101.25 < angle <= 123.75:
+        return "ESE"
+    elif 123.75 < angle <= 146.25:
+        return "SE"
+    elif 146.25 < angle <= 168.75:
+        return "SSE"
+    elif 168.75 < angle <= 191.25:
+        return "S"
+    elif 191.25 < angle <= 213.75:
+        return "SSW"
+    elif 213.75 < angle <= 236.25:
+        return "SW"
+    elif 236.25 < angle <= 258.75:
+        return "WSW"
+    elif 258.75 < angle <= 281.25:
+        return "W"
+    elif 281.25 < angle <= 303.75:
+        return "WNW"
+    elif 303.75 < angle <= 326.25:
+        return "NW"
+    elif 326.25 < angle <= 348.75:
+        return "NNW"
+    elif 348.75 < angle < 360:
+        return "N"
+
 def get_wind_angle(url):
     download_img_from_url(url, dir_wind_img)
 
@@ -136,8 +172,9 @@ def main(args):
 
     speed, date, time = get_wind_speed(avg_wind_url)
     angle = get_wind_angle(dir_wind_url)
+    direction = angle_to_direction(angle)
 
-    text = "Monciškės: {}m/s | {}° ".format(speed, angle)
+    text = "Monciškės: {}m/s | {} ({}°) ".format(speed, direction, angle)
 
     time = get_time()
     angle_ok = is_angle_ok(angle, dir_start, dir_end)
@@ -149,7 +186,6 @@ def main(args):
 
     csv_format = time.strftime("%Y-%m-%d, %H:%M:%S, ") + str(speed) + ", " + str(angle) + "\n"
     save_raw_data(raw_data_file, csv_format)
-    print(csv_format)
 
     if (angle_ok and speed_ok and sunlight_ok):
         ids = get_chat_ids(args.bot_api_key)
