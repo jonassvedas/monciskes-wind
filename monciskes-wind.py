@@ -8,6 +8,7 @@ import numpy as np
 from math import acos, sqrt, pi
 from suntime import Sun
 import pytz
+import os
 from datetime import datetime
 
 raw_data_file= "raw_data.csv"
@@ -192,6 +193,7 @@ def main(args):
         save_chat_ids_to_db(ids)
         if not args.quiet:
             send_telegram(args.bot_api_key, text, ids)
+            send_telegram_channel(args.bot_api_key, text)
     else:
         ids = get_chat_ids(args.bot_api_key)
         save_chat_ids_to_db(ids)
@@ -204,13 +206,15 @@ def get_args():
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('-b','--bot-api-key', type = str,
-                        required = True,
-                        help = 'Telegram bot API key.')
+                        default=os.environ.get('TELEGRAM_BOT_TOKEN'),
+                        help = 'Telegram bot API key (defaults to TELEGRAM_BOT_TOKEN).')
 
     parser.add_argument('-q','--quiet', action='store_true',
                         help = 'Runs quietly without sending an update.')
 
     args, unparsed = parser.parse_known_args()
+    if not args.bot_api_key:
+        parser.error('set TELEGRAM_BOT_TOKEN or pass --bot-api-key')
     return args
 
 

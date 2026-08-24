@@ -53,4 +53,5 @@ def send_telegram(bot_api_key,text, chat_ids):
     for chat_id in chat_ids:
         send_telegram_message(bot_api_key, chat_id, text)
 
-
+def send_telegram_channel(bot_api_key, text):
+    send_telegram_message(bot_api_key, "@monciskeswind", text)
