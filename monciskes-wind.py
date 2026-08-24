@@ -19,7 +19,7 @@ dir_wind_url = "http://juraspot.lt/images/WindDirection.php"
 avg_wind_img = "avg_wind.png"
 dir_wind_img = "dir_wind.png"
 
-wind_min, wind_max = (6.5, 13.5)
+wind_min = 6
 # for the angle settings North is assumed at 0 degrees, angle is increasing clockwise.
 # angle is from 0 to 359
 dir_start, dir_end = (180, 0)
@@ -34,11 +34,8 @@ def is_angle_ok(angle, start, end):
             return True
     return False
 
-def is_speed_ok(speed, min_speed, max_speed):
-    if (speed >= min_speed) and (speed <= max_speed):
-        return True
-    else:
-        return False
+def is_speed_ok(speed, min_speed):
+    return speed >= min_speed
 
 def get_time():
     return pytz.utc.localize(datetime.utcnow())
@@ -179,7 +176,7 @@ def main(args):
 
     time = get_time()
     angle_ok = is_angle_ok(angle, dir_start, dir_end)
-    speed_ok = is_speed_ok(speed, wind_min, wind_max)
+    speed_ok = is_speed_ok(speed, wind_min)
     sunlight_ok = is_sunlight_ok(time)
 
     print(text)
