@@ -186,14 +186,8 @@ def main(args):
     save_raw_data(raw_data_file, csv_format)
 
     if args.force_send or (angle_ok and speed_ok and sunlight_ok):
-        ids = get_chat_ids(args.bot_api_key)
-        save_chat_ids_to_db(ids)
         if not args.quiet:
-            send_telegram(args.bot_api_key, text, ids)
             send_telegram_channel(args.bot_api_key, text)
-    else:
-        ids = get_chat_ids(args.bot_api_key)
-        save_chat_ids_to_db(ids)
 
 
 def get_args():

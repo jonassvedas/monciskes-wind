@@ -1,8 +1,7 @@
 # monciskes-wind
 
 ## About
-This is a script that sends a Telegram notification via the
-[`@monciskes_wind_bot`](https://t.me/monciskes_wind_bot) bot and to the
+This is a script that sends a Telegram notification to the
 [`@monciskeswind`](https://t.me/monciskeswind) channel when wind is good for
 kiteboarding in Monciskes.
 Data is taken from the wind station provided by juraspot.lt.
@@ -13,8 +12,7 @@ Wind is checked every 30 minutes and a notification is sent when:
 * the sun is up :)
 
 ## How to install
-Join the [`@monciskeswind`](https://t.me/monciskeswind) channel in Telegram,
-or start a conversation with [`@monciskes_wind_bot`](https://t.me/monciskes_wind_bot).
+Join the [`@monciskeswind`](https://t.me/monciskeswind) channel in Telegram.
 
 ## For developers
 
