@@ -30,7 +30,7 @@ def is_angle_ok(angle, start, end):
         if (angle >= start) and (angle <= end):
             return True
     else:
-        if not((angle >= end) and (angle <= start)):
+        if not((angle > end) and (angle < start)):
             return True
     return False
 
@@ -83,7 +83,7 @@ def get_wind_speed(url):
     return (speed, date, time)
 
 def angle_to_direction(angle):
-    if 0 < angle <= 11.25:
+    if 0 <= angle <= 11.25:
         return "N"
     elif 11.25 < angle <= 33.75:
         return "NNE"
@@ -154,13 +154,13 @@ def get_wind_angle(url):
         angle = 0
 
     # Debug
-    #print("Red pixels avg: ",red_avg)
-    #print("angle: ", angle)
-    #import matplotlib.pyplot as plt
-    #plt.imshow(red_pixels)
-    #plt.plot(center[1],center[0],'.')
-    #plt.plot(red_avg[1],red_avg[0],'.')
-    #plt.show()
+    # print("Red pixels avg: ",red_avg)
+    # print("angle: ", angle)
+    # import matplotlib.pyplot as plt
+    # plt.imshow(red_pixels)
+    # plt.plot(center[1],center[0],'.')
+    # plt.plot(red_avg[1],red_avg[0],'.')
+    # plt.show()
 
     return angle
 
