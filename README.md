@@ -22,6 +22,9 @@ or start a conversation with [`@monciskes_wind_bot`](https://t.me/monciskes_wind
 To avoid sending messages to all users during testing a test mode is available
 via the -q option.
 
+Use `-f` or `--force-send` to send the current reading regardless of wind
+conditions.
+
 ### Running
 
 Add the bot to the channel as an administrator with permission to post

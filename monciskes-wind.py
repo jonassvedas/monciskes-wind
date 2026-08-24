@@ -185,7 +185,7 @@ def main(args):
     csv_format = time.strftime("%Y-%m-%d, %H:%M:%S, ") + str(speed) + ", " + str(angle) + "\n"
     save_raw_data(raw_data_file, csv_format)
 
-    if (angle_ok and speed_ok and sunlight_ok):
+    if args.force_send or (angle_ok and speed_ok and sunlight_ok):
         ids = get_chat_ids(args.bot_api_key)
         save_chat_ids_to_db(ids)
         if not args.quiet:
@@ -208,6 +208,9 @@ def get_args():
 
     parser.add_argument('-q','--quiet', action='store_true',
                         help = 'Runs quietly without sending an update.')
+
+    parser.add_argument('-f','--force-send', action='store_true',
+                        help = 'Sends an update regardless of wind conditions.')
 
     args, unparsed = parser.parse_known_args()
     if not args.bot_api_key:
