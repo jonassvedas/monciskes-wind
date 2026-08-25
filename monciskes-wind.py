@@ -19,7 +19,7 @@ dir_wind_url = "http://juraspot.lt/images/WindDirection.php"
 avg_wind_img = "avg_wind.png"
 dir_wind_img = "dir_wind.png"
 
-wind_min = 6
+wind_min = 6.5
 # for the angle settings North is assumed at 0 degrees, angle is increasing clockwise.
 # angle is from 0 to 359
 dir_start, dir_end = (180, 0)
